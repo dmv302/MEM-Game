@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.map.WorldMap;
 import com.mem.game.utils.Constants;
 
@@ -14,6 +16,7 @@ public class GameScreen extends MemScreen {
     Texture img;
 
     WorldMap map;
+    Viewport viewport;
     OrthographicCamera cam;
 
     public GameScreen(Game game){
@@ -23,6 +26,8 @@ public class GameScreen extends MemScreen {
         cam = new OrthographicCamera(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
         cam.position.x = 0;
         cam.position.y = 0;
+
+        viewport = new FillViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
 
         img = new Texture("hero.png");
     }
@@ -47,7 +52,9 @@ public class GameScreen extends MemScreen {
 
     @Override
     public void resize(int width, int height) {
+        viewport.update(width, height, true);
 
+        batch.setProjectionMatrix(cam.combined);
     }
 
     @Override

@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mem.game.components.TextureComponent;
+import com.mem.game.components.TransformComponent;
 
 public class RenderSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
@@ -18,8 +20,8 @@ public class RenderSystem extends EntitySystem {
     private SpriteBatch batch;
     private OrthographicCamera camera;
 
-    //private ComponentMapper<TransformComponent> tm = ComponentMapper.getFor(TransformComponent.class);
-    //private ComponentMapper<TextureComponent> vm = ComponentMapper.getFor(TextureComponent.class);
+    private ComponentMapper<TransformComponent> tm = ComponentMapper.getFor(TransformComponent.class);
+    private ComponentMapper<TextureComponent> vm = ComponentMapper.getFor(TextureComponent.class);
     //private ComponentMapper<SizeComponent> sm = ComponentMapper.getFor(SizeComponent.class);
 
     public RenderSystem(OrthographicCamera camera){
@@ -38,6 +40,7 @@ public class RenderSystem extends EntitySystem {
         camera.update();
 
         batch.begin();
+        
         batch.setProjectionMatrix(camera.combined);
 
         batch.end();
