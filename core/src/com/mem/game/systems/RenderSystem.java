@@ -5,14 +5,11 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.mem.game.components.TextureComponent;
 import com.mem.game.components.TransformComponent;
+import com.mem.game.utils.Constants;
 
 public class RenderSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
@@ -20,9 +17,8 @@ public class RenderSystem extends EntitySystem {
     private SpriteBatch batch;
     private OrthographicCamera camera;
 
-    private ComponentMapper<TransformComponent> tm = ComponentMapper.getFor(TransformComponent.class);
-    private ComponentMapper<TextureComponent> vm = ComponentMapper.getFor(TextureComponent.class);
-    //private ComponentMapper<SizeComponent> sm = ComponentMapper.getFor(SizeComponent.class);
+    private ComponentMapper<TransformComponent> transm = ComponentMapper.getFor(TransformComponent.class);
+    private ComponentMapper<TextureComponent> textm = ComponentMapper.getFor(TextureComponent.class);
 
     public RenderSystem(OrthographicCamera camera){
         batch = new SpriteBatch();
@@ -32,17 +28,23 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        //entities = engine.getEntitiesFor(Family.all(TransformComponent.class, TextureComponent.class, SizeComponent.class).get());
+        entities = engine.getEntitiesFor(Family.all(TransformComponent.class, TextureComponent.class).get());
     }
 
     @Override
     public void update(float deltaTime) {
         camera.update();
-
         batch.begin();
-        
         batch.setProjectionMatrix(camera.combined);
-
+        for (Entity entity : entities) {
+            TextureComponent textureComponent = textm.get(entity);
+            TransformComponent transformComponent = transm.get(entity);
+            
+            batch.draw(textureComponent.texture, transformComponent.position.x, transformComponent.position.y,
+                    Constants.ORIGIN.x, Constants.ORIGIN.y,
+                    textureComponent.texture.getRegionWidth(), textureComponent.texture.getRegionHeight(),
+                    transformComponent.scale.x, transformComponent.scale.y, transformComponent.rotation);
+        }
         batch.end();
     }
 }
