@@ -41,23 +41,50 @@ public class WorldMap {
         int mouseY = Gdx.input.getY();
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.isTouched() &&
-                mouseX < width * 0.25f)) {
-            direction.x = -1;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || (Gdx.input.
-                isTouched() && mouseX > width * 0.75f)) {
-            direction.x = 1;
+
+        boolean toLeft = Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.isTouched() &&
+                mouseX < width * 0.25f);
+
+        boolean toRight = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || (Gdx.input.
+                isTouched() && mouseX > width * 0.75f);
+
+        boolean toUp = Gdx.input.isKeyPressed(Input.Keys.UP) || (Gdx.input.isTouched() &&
+                mouseY < height * 0.25f);
+
+        boolean toDown = Gdx.input.isKeyPressed(Input.Keys.DOWN) || (Gdx.input.
+                isTouched() && mouseY > height * 0.75f);
+
+        if ((camera.position.x <= Constants.VIRTUAL_WIDTH / 2 && toLeft) || (camera.position.y <= Constants.VIRTUAL_HEIGHT / 2 && toDown) ||
+                (camera.position.x >= getWidth() - Constants.VIRTUAL_WIDTH / 2 && toRight) || (camera.position.y >= getHeight() - Constants.VIRTUAL_HEIGHT / 2 && toUp)
+        ) {
+            if (toLeft && camera.position.x <= Constants.VIRTUAL_WIDTH / 2) {
+                camera.position.x = Constants.VIRTUAL_WIDTH / 2;
+            }
+            if (toDown && camera.position.y <= Constants.VIRTUAL_HEIGHT / 2) {
+                camera.position.y = Constants.VIRTUAL_HEIGHT / 2;
+            }
+            if (toRight &&camera.position.x >= getWidth() - Constants.VIRTUAL_WIDTH / 2 ) {
+                camera.position.x = getWidth() - Constants.VIRTUAL_WIDTH / 2;
+            }
+            if (toUp && camera.position.y >= getHeight() - Constants.VIRTUAL_HEIGHT / 2) {
+                camera.position.y = getHeight() - Constants.VIRTUAL_HEIGHT / 2;
+            }
+
+        } else {
+            if (toLeft) {
+                direction.x = -1;
+            } else if (toRight) {
+                direction.x = 1;
+            }
+            if (toUp) {
+                direction.y = 1;
+            } else if (toDown) {
+                direction.y = -1;
+            }
+            //direction.nor().scl(CAMERA_SPEED * Gdx.graphics.getDeltaTime());???
+            camera.position.x += direction.x;
+            camera.position.y += direction.y;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || (Gdx.input.isTouched() &&
-                mouseY < height * 0.25f)) {
-            direction.y = 1;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || (Gdx.input.
-                isTouched() && mouseY > height * 0.75f)) {
-            direction.y = -1;
-        }
-        direction.nor().scl(CAMERA_SPEED * Gdx.graphics.getDeltaTime());
-        camera.position.x += direction.x;
-        camera.position.y += direction.y;
         camera.update();
     }
 
