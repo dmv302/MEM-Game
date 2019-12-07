@@ -24,8 +24,8 @@ public class GameScreen extends MemScreen {
         batch = new SpriteBatch();
         map = new WorldMap();
         cam = new OrthographicCamera(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
-        cam.position.x = 0;
-        cam.position.y = 0;
+        cam.position.x = 15000;
+        cam.position.y = 15000;
 
         viewport = new FillViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
 
