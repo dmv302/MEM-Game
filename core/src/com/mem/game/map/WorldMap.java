@@ -12,7 +12,7 @@ import com.mem.game.utils.Constants;
 
 public class WorldMap {
 
-    private static final float CAMERA_SPEED = 100.0f;
+    private static final float CAMERA_SPEED = 100f;
 
     private TiledMap map;
     private TmxMapLoader loader;
@@ -33,8 +33,6 @@ public class WorldMap {
         updateCamera(camera);
         renderer.setView(camera);
         renderer.render();
-
-
     }
 
     private void updateCamera(OrthographicCamera camera) {
