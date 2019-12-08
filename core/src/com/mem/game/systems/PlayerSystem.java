@@ -3,10 +3,12 @@ package com.mem.game.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.mem.game.components.PlayerComponent;
 import com.mem.game.components.TextureComponent;
 import com.mem.game.components.TransformComponent;
 import com.mem.game.components.VelocityComponent;
+import com.mem.game.podarki.Podarok;
 import com.mem.game.screens.GameScreen;
 import com.mem.game.utils.Constants;
 
@@ -57,6 +59,21 @@ public class PlayerSystem extends EntitySystem {
 				txc.texture = pc.eastAnimation.getForTime(pt.time * pc.state.ordinal());
 				break;
 		}
+
+		findBoxes(pt, pc, vc,txc, delta);
+	}
+
+	private void findBoxes(TransformComponent pt, PlayerComponent pc, VelocityComponent vc,TextureComponent tc, float delta){
+		Rectangle chelovek = new Rectangle(pt.position.x,pt.position.y,tc.texture.getRegionWidth(),1);
+		Podarok found = null;
+		for(Podarok pod : Podarok.podarki){
+			if(pod.rectangle.overlaps(chelovek)){
+				found = pod;
+				screen.BOX_COUNTER++;
+			}
+		}
+		if(found != null)Podarok.podarki.remove(found);
+		System.out.println(screen.BOX_COUNTER);
 	}
 
 	private boolean canMove(TransformComponent pt, PlayerComponent pc, VelocityComponent vc,TextureComponent tc, float delta) {

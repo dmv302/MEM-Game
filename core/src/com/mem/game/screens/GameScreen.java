@@ -36,6 +36,8 @@ public class GameScreen extends MemScreen {
     Viewport viewport;
     OrthographicCamera cam;
 
+    static public int BOX_COUNTER = 0;
+
     public GameScreen(Game game){
         super(game);
         engine = new Engine();
@@ -100,15 +102,11 @@ public class GameScreen extends MemScreen {
         batch.setProjectionMatrix(cam.combined);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
-        
 
         batch.begin();
         map.render(cam,batch);
         engine.update(delta);
-       // batch.draw(img,cam.position.x - img.getWidth()/2f,cam.position.y - img.getHeight()/2f);
         batch.end();
-        
     }
 
     @Override

@@ -74,7 +74,6 @@ public class WorldMap {
         batch.end();
         batch.begin();
         for(Podarok pod :Podarok.podarki){
-            System.out.println(pod.rectangle.x);
             batch.draw(pod.texture, pod.rectangle.x,pod.rectangle.y);
         }
     }
