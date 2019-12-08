@@ -6,14 +6,16 @@ import com.badlogic.gdx.InputProcessor;
 import com.mem.game.screens.CutSceneScreen;
 import com.mem.game.screens.GameScreen;
 import com.mem.game.screens.MainMenuScreen;
+import com.mem.game.screens.WonScreen;
 
 public class Game extends com.badlogic.gdx.Game {
 	private MainMenuScreen mms;
 	private GameScreen gs;
 	private CutSceneScreen cs;
+	private WonScreen ws;
 	public InputMultiplexer inputProcessor;
 	
-	private enum StatesEnum { MAIN_MENU, CUTSCENE_SCRENE, PLAYING, EXITING};
+	private enum StatesEnum { MAIN_MENU, CUTSCENE_SCRENE, PLAYING, FINAL_SCENE, EXITING};
 	private StatesEnum state;
 	
 	@Override
@@ -38,6 +40,13 @@ public class Game extends com.badlogic.gdx.Game {
 		if (state == StatesEnum.CUTSCENE_SCRENE) {
 			setScreen(gs);
 			state = StatesEnum.PLAYING;
+		}
+	}
+
+	public void won() {
+		if (state == StatesEnum.PLAYING) {
+			setScreen(ws);
+			state = StatesEnum.FINAL_SCENE;
 		}
 	}
 	
