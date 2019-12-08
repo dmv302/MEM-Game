@@ -31,6 +31,7 @@ public class MainMenuScreen extends MemScreen {
 		super(game);
 		theme = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.ogg"));
 		theme.setLooping(true);
+		theme.setVolume(0.3f);
 		theme.play();
 		skin = new Skin(Gdx.files.internal("skin/freezingui/freezing-ui.json"));
 		batch = new SpriteBatch();
