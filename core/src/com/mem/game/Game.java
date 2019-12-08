@@ -45,6 +45,7 @@ public class Game extends com.badlogic.gdx.Game {
 
 	public void won() {
 		if (state == StatesEnum.PLAYING) {
+			ws = new WonScreen(this);
 			setScreen(ws);
 			state = StatesEnum.FINAL_SCENE;
 		}
@@ -52,6 +53,7 @@ public class Game extends com.badlogic.gdx.Game {
 	
 	public void exit() {
 		state = StatesEnum.EXITING;
+		System.exit(0);
 	}
 
 	public void addInput(InputProcessor ip) {

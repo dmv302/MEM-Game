@@ -28,6 +28,7 @@ public class CutSceneScreen extends MemScreen {
 		skin = new Skin(Gdx.files.internal("skin/freezingui/freezing-ui.json"));
 		batch = new SpriteBatch();
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		ui = new Stage(viewport, batch);
 		game.addInput(ui);
 
@@ -37,21 +38,15 @@ public class CutSceneScreen extends MemScreen {
 		start.addListener(toGameListener);
 		ui.addActor(start);
 
-
 		label = new Label("SANTA CLAUS: Young elf, you have been studying your craft with me for a long ten years, and now the time has come for you to prove that I can trust you in important tasks. I have prepared a challenge for you: there are 12 hidden packages across the woods, and you need to find them all. If you succeed, you'll become my assistant. Good luck!", skin);
 		label.setFontScale(1.2f);
 		label.setWrap(true);
 		label.setWidth(viewport.getWorldWidth());
 		label.setPosition(0, viewport.getWorldHeight() - label.getHeight() * 3);
 		ui.addActor(label);
-
-
-
-
-
+		
+		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
-
-
 
 	@Override
 	public void render(float delta) {
