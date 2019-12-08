@@ -28,8 +28,6 @@ import com.mem.game.utils.Constants;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mem.game.utils.NpcDialog;
 
-import java.util.Iterator;
-
 public class GameScreen extends MemScreen {
     Stage ui;
     SpriteBatch batch;
@@ -81,6 +79,10 @@ public class GameScreen extends MemScreen {
                 "What? You know how to talk to animals? You must be Santa's elf!",
                 "Once people knew how to talk to animals too, but then they forgot the knowledge, and now elves are the ones who keep it.",
                 "I've seen some presents thrown around the forest, look around.");
+        createNpc(new TextureRegion(new Texture("npc/tucan.png")), "tucan", 40, 20,
+                "Car-car!",
+                "Car ???",
+                "CAR-CAR-CAR !!!");
 
 
     }
