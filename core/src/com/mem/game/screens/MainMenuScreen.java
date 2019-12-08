@@ -32,9 +32,9 @@ public class MainMenuScreen extends MemScreen {
 	
 	public MainMenuScreen(Game game) {
 		super(game);
-		skin = new Skin(Gdx.files.internal("skin/freezingui/freezing-ui.json"));
+		skin = Constants.SKIN;
 		batch = new SpriteBatch();
-		viewport = new ScreenViewport();//FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		viewport = new ScreenViewport();
 		ui = new Stage(viewport, batch);
 		game.addInput(ui);
 		
