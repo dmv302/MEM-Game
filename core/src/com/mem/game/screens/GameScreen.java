@@ -57,7 +57,7 @@ public class GameScreen extends MemScreen {
     private Entity createPlayer() {
         Entity player = new Entity();
         TransformComponent component = new TransformComponent();
-        component.position.set(0, 0, 0);
+        component.position.set(Constants.TILE_WIDTH * Constants.SPAWN.x, Constants.TILE_HEIGHT * Constants.SPAWN.y, 0);
         player.add(component);
         player.add(new TextureComponent().set(new TextureRegion(new Texture("hero/south_still.png"))));
         player.add(new VelocityComponent(5 * Constants.TILE_WIDTH, 5 * Constants.TILE_HEIGHT));
