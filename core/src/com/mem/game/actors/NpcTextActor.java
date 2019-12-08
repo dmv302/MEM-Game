@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class NpcTextActor extends Actor {
 	private ShapeRenderer shapeRenderer;
 	static private boolean projectionMatrixSet;
-	private int width;
-	private int height;
+	public int width;
+	public int height;
 	
 	public NpcTextActor(int width, int height){
 		shapeRenderer = new ShapeRenderer();
@@ -17,6 +17,8 @@ public class NpcTextActor extends Actor {
 		this.width = width;
 		this.height = height;
 	}
+	
+	
 	
 	@Override
 	public void draw(Batch batch, float alpha){

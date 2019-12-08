@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.Game;
@@ -41,6 +42,9 @@ public class GameScreen extends MemScreen {
     Viewport viewport;
     OrthographicCamera cam;
     Label label;
+    
+    NpcTextActor giftsCounterBack;
+    Label giftsCounterLabel;
 
     static public int BOX_COUNTER = 0;
     boolean isNpcTextOnScreen = false;
@@ -56,6 +60,19 @@ public class GameScreen extends MemScreen {
         viewport = new FitViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
         ui = new Stage(viewport, batch);
         engine.addSystem(new TimeSystem());
+    
+        giftsCounterLabel = new Label("Presents picked: 0 / 12", Constants.SKIN);
+        giftsCounterLabel.setFontScale(0.6f);
+        giftsCounterBack = new NpcTextActor((int) giftsCounterLabel.getWidth(), (int) giftsCounterLabel.getHeight());
+        Container<Label> c1 = new Container<>(giftsCounterLabel);
+        c1.pad(20);
+        c1.left();
+        Container<NpcTextActor> c2 = new Container<>(giftsCounterBack);
+        c2.pad(20);
+        c2.left();
+        
+        //ui.addActor(giftsCounterBack);
+        ui.addActor(giftsCounterLabel);
         
         cam.position.x = map.getWidth()/2;
         cam.position.y = map.getHeight()/2;
@@ -133,6 +150,8 @@ public class GameScreen extends MemScreen {
         ui.addActor(textBack);
         Label label = new Label(text, Constants.SKIN);
         label.setFontScale(0.7f);
+        label.setWidth((int)viewport.getWorldWidth() - 20);
+        label.setWrap(true);
         label.setPosition(10, viewport.getWorldHeight() / 4 - label.getHeight());
         ui.addActor(label);
     }
@@ -140,6 +159,7 @@ public class GameScreen extends MemScreen {
     public void removeNpcText() {
         isNpcTextOnScreen = false;
         ui.clear();
+        ui.addActor(giftsCounterLabel);
     }
     
     public Vector3 getPlayerPosition() {
@@ -164,6 +184,13 @@ public class GameScreen extends MemScreen {
 
     @Override
     public void render(float delta) {
+        giftsCounterLabel.setText("Presents picked: " + BOX_COUNTER + " / 12");
+        giftsCounterBack.width = (int)giftsCounterLabel.getWidth();
+        giftsCounterBack.height = (int)giftsCounterLabel.getHeight();
+        giftsCounterLabel.setY(viewport.getWorldHeight() - giftsCounterLabel.getHeight());
+        giftsCounterBack.setY(viewport.getWorldHeight() - giftsCounterBack.getHeight());
+        
+        
         batch.setProjectionMatrix(cam.combined);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
