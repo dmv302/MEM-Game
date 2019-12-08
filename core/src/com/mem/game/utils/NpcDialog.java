@@ -9,10 +9,13 @@ public class NpcDialog {
 		this.curr = 0;
 	}
 	
-	public String getNextPhrase() {
+	public void reset() {
+		curr = 0;
+	}
+	
+	public void nextPhrase() {
 		curr++;
-		if (curr > phrases.length) curr = curr % phrases.length;
-		return phrases[curr];
+		if (curr >= phrases.length) curr = curr % phrases.length;
 	}
 	
 	public String getCurrPhrase() {

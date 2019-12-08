@@ -1,6 +1,7 @@
 package com.mem.game.input;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.mem.game.components.NpcComponent;
 
@@ -15,6 +16,16 @@ public class NpcInputProcessor implements InputProcessor {
 	
 	@Override
 	public boolean keyDown(int keycode) {
+		if (keycode == Input.Keys.ENTER) {
+			if (npc.getComponent(NpcComponent.class).state == NpcComponent.NpcState.SILENT) {
+				npc.getComponent(NpcComponent.class).dialog.reset();
+				npc.getComponent(NpcComponent.class).state = NpcComponent.NpcState.TALKING;
+			} else if (npc.getComponent(NpcComponent.class).state == NpcComponent.NpcState.TALKING) {
+				if (npc.getComponent(NpcComponent.class).dialog.isEnd())
+					npc.getComponent(NpcComponent.class).state = NpcComponent.NpcState.SILENT;
+				npc.getComponent(NpcComponent.class).dialog.nextPhrase();
+			}
+		}
 		return false;
 	}
 	

@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.Game;
@@ -15,18 +14,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mem.game.actors.NpcTextActor;
 import com.mem.game.components.*;
+import com.mem.game.input.NpcInputProcessor;
 import com.mem.game.input.PlayerInputProcessor;
 import com.mem.game.map.WorldMap;
+import com.mem.game.systems.NpcSystem;
 import com.mem.game.systems.PlayerSystem;
 import com.mem.game.systems.RenderSystem;
 import com.mem.game.systems.TimeSystem;
 import com.mem.game.utils.Constants;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-
-import javax.swing.*;
+import com.mem.game.utils.NpcDialog;
 
 public class GameScreen extends MemScreen {
     Stage ui;
@@ -51,12 +50,12 @@ public class GameScreen extends MemScreen {
         engine.addSystem(render);
         viewport = new FitViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
         ui = new Stage(viewport, batch);
+        engine.addSystem(new TimeSystem());
         
         cam.position.x = map.getWidth()/2;
         cam.position.y = map.getHeight()/2;
         createPlayer();
-        
-        displayNpcText("LOL KEK TESTOVEK");
+        createNpc(new TextureRegion(new Texture("present.png")), "random", 2, 2,"hi", "testing", "amazing");
     }
 
     private Entity createPlayer() {
@@ -76,35 +75,38 @@ public class GameScreen extends MemScreen {
         PlayerSystem playerSystem = new PlayerSystem(player,this);
         engine.addEntity(player);
         engine.addSystem(playerSystem);
-        engine.addSystem(new TimeSystem());
         return player;
     }
     
-    private Entity createNpc(TextureRegion texture, String name, String... phrases) {
+    private Entity createNpc(TextureRegion texture, String name, int x, int y, String... phrases) {
         Entity npc = new Entity();
         TransformComponent tc = new TransformComponent();
-        TextureComponent txc = new TextureComponent();
+        tc.position.x = x * Constants.TILE_WIDTH;
+        tc.position.y = y * Constants.TILE_HEIGHT;
+        TextureComponent txc = new TextureComponent().set(texture);
         AnimationComponent ac = new AnimationComponent();
         NpcComponent nc = new NpcComponent();
+        NpcInputProcessor nip = new NpcInputProcessor(npc, nc);
+        nc.dialog = new NpcDialog(phrases);
+        nc.input = nip;
+        game.addInput(nip);
         npc.add(tc);
         npc.add(txc);
         npc.add(ac);
         npc.add(nc);
         engine.addEntity(npc);
+        engine.addSystem(new NpcSystem(npc, this));
         return npc;
     }
     
     public void displayNpcText(String text) {
+        removeNpcText();
         isNpcTextOnScreen = true;
         NpcTextActor textBack = new NpcTextActor((int)viewport.getWorldWidth(), (int)viewport.getWorldHeight() / 4);
         ui.addActor(textBack);
         Label label = new Label(text, Constants.SKIN);
         label.setFontScale(0.7f);
-//        label.setPosition(viewport.getCamera().viewportWidth / 10, viewport.getCamera().viewportHeight - viewport.getCamera().viewportHeight / 4);
-        Container labelContainer = new Container(label);
-        labelContainer.bottom();
-        labelContainer.left();
-        labelContainer.pad(20);
+        label.setPosition(10, viewport.getWorldHeight() / 4 - label.getHeight());
         ui.addActor(label);
     }
     
