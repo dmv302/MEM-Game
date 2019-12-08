@@ -24,7 +24,7 @@ public class PlayerSystem extends EntitySystem {
 
 	public PlayerSystem(Entity player, GameScreen screen) {
 		super(0);
-		sound = Gdx.audio.newSound(Gdx.files.internal("sounds/snow_step.mp3"));
+		sound = Gdx.audio.newSound(Gdx.files.internal("sounds/step.mp3"));
 		this.screen = screen;
 		this.player = player;
 	}
