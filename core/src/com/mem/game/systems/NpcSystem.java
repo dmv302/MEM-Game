@@ -49,7 +49,7 @@ public class NpcSystem extends EntitySystem {
 		}
 		if (closestNpc != null) {
 			if (closestNpc.getComponent(NpcComponent.class).state == NpcComponent.NpcState.TALKING) {
-				screen.displayNpcText(npc.getComponent(NpcComponent.class).dialog.getCurrPhrase());
+				screen.displayNpcText(closestNpc.getComponent(NpcComponent.class).dialog.getCurrPhrase());
 			} else {
 				screen.removeNpcText();
 			}
