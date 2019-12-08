@@ -37,8 +37,8 @@ public class GameScreen extends MemScreen {
         engine.addSystem(render);
         
         
-        cam.position.x = 0;
-        cam.position.y = 0;
+        cam.position.x = map.getWidth()/2;
+        cam.position.y = map.getHeight()/2;
 
         viewport = new FillViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
 
