@@ -126,8 +126,8 @@
   </data>
  </layer>
  <objectgroup id="3" name="podarki">
-  <object id="5" x="296.461" y="509.04" width="29.6667" height="30.3333" rotation="-0.694363"/>
-  <object id="6" x="41.1959" y="543.636" width="30.3333" height="31" rotation="-0.694363"/>
+  <object id="5" x="299.795" y="479.706" width="29.6667" height="30.3333" rotation="-0.694363"/>
+  <object id="6" x="31.1959" y="512.969" width="30.3333" height="31" rotation="-0.694363"/>
   <object id="7" x="1802.55" y="712.803" width="31.4511" height="31.9286" rotation="-0.694363"/>
   <object id="8" x="1545.99" y="750.945" width="31.6364" height="31.4545" rotation="-0.694363"/>
   <object id="9" x="1026.74" y="211.016" width="31.2727" height="31.6364" rotation="-0.694363"/>
@@ -137,6 +137,6 @@
   <object id="13" x="394.531" y="635.376" width="31.2727" height="31.6364" rotation="-0.694363"/>
   <object id="14" x="45.0343" y="926.632" width="31.2727" height="31.6364" rotation="-0.694363"/>
   <object id="15" x="67.7669" y="191.788" width="29.3333" height="28.6667" rotation="-0.694363"/>
-  <object id="19" x="1599.27" y="63.5357" width="31.4511" height="31.9286" rotation="-0.694363"/>
+  <object id="19" x="1567.27" y="158.869" width="31.4511" height="31.9286" rotation="-0.694363"/>
  </objectgroup>
 </map>

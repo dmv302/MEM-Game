@@ -36,7 +36,7 @@ public class GameScreen extends MemScreen {
     Engine engine;
     RenderSystem render;
     Sound talkingSound;
-    
+
     WorldMap map;
     Viewport viewport;
     OrthographicCamera cam;
@@ -56,13 +56,13 @@ public class GameScreen extends MemScreen {
         viewport = new FitViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
         ui = new Stage(viewport, batch);
         engine.addSystem(new TimeSystem());
-        
+
         cam.position.x = map.getWidth()/2;
         cam.position.y = map.getHeight()/2;
         createPlayer();
         createNpcs();
     }
-    
+
     private void createNpcs() {
         createNpc(new TextureRegion(new Texture("npc/squirrel.png")), "squirrel", 5, 7,
                 "Hello, elf! Are you one of the Santa's assistants?",
@@ -81,7 +81,7 @@ public class GameScreen extends MemScreen {
                 "What? You know how to talk to animals? You must be Santa's elf!",
                 "Once people knew how to talk to animals too, but then they forgot the knowledge, and now elves are the ones who keep it.",
                 "I've seen some presents thrown around the forest, look around.");
-        
+
 
     }
 
@@ -104,7 +104,7 @@ public class GameScreen extends MemScreen {
         engine.addSystem(playerSystem);
         return player;
     }
-    
+
     private Entity createNpc(TextureRegion texture, String name, int x, int y, String... phrases) {
         Entity npc = new Entity();
         TransformComponent tc = new TransformComponent();
@@ -125,7 +125,7 @@ public class GameScreen extends MemScreen {
         engine.addSystem(new NpcSystem(npc, this));
         return npc;
     }
-    
+
     public void displayNpcText(String text) {
         removeNpcText();
         isNpcTextOnScreen = true;
@@ -136,12 +136,12 @@ public class GameScreen extends MemScreen {
         label.setPosition(10, viewport.getWorldHeight() / 4 - label.getHeight());
         ui.addActor(label);
     }
-    
+
     public void removeNpcText() {
         isNpcTextOnScreen = false;
         ui.clear();
     }
-    
+
     public Vector3 getPlayerPosition() {
         Entity player = engine.getEntitiesFor(Family.one(PlayerComponent.class).get()).first();
         Vector3 pos = player.getComponent(TransformComponent.class).position.cpy();
@@ -152,7 +152,7 @@ public class GameScreen extends MemScreen {
         }
         return pos;
     }
-    
+
     public WorldMap getMap(){
         return map;
     }
