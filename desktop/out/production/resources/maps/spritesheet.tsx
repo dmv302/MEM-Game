@@ -2,6 +2,9 @@
 <tileset version="1.2" tiledversion="1.3.1" name="spritesheet" tilewidth="32" tileheight="96" tilecount="20" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
+  <properties>
+   <property name="Collision" type="bool" value="true"/>
+  </properties>
   <image width="32" height="32" source="../snow0.png"/>
  </tile>
  <tile id="3">

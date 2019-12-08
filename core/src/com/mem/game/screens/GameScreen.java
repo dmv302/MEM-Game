@@ -50,7 +50,6 @@ public class GameScreen extends MemScreen {
 
         viewport = new FillViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
 
-        
         createPlayer();
     }
 
@@ -67,7 +66,7 @@ public class GameScreen extends MemScreen {
         PlayerInputProcessor pic = new PlayerInputProcessor(player);
         player.add(pic);
         game.addInput(pic);
-        PlayerSystem playerSystem = new PlayerSystem(player);
+        PlayerSystem playerSystem = new PlayerSystem(player,this);
         engine.addEntity(player);
         engine.addSystem(playerSystem);
         return player;
@@ -82,7 +81,10 @@ public class GameScreen extends MemScreen {
         return pos;
     }
     
-    
+    public WorldMap getMap(){
+        return map;
+    }
+
     @Override
     public void show() {
 
