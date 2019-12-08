@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.Game;
+import com.mem.game.utils.Constants;
 
 public class MainMenuScreen extends MemScreen {
 	private Stage ui;
