@@ -5,12 +5,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mem.game.podarki.Podarok;
 import com.mem.game.screens.GameScreen;
 import com.mem.game.utils.Constants;
 
@@ -28,7 +31,9 @@ public class WorldMap {
 
     TiledMapTileLayer terrainLayer; // assuming the layer at index on contains tiles
 
-    TiledMapTileLayer collisionLayer; // assuming the layer at index on contains tiles
+    TiledMapTileLayer collisionLayer;
+
+    TiledMapTileLayer npcLayer;
 
 
     public WorldMap(GameScreen gs) {
@@ -40,21 +45,40 @@ public class WorldMap {
         mapLayers = map.getLayers();
         terrainLayer = (TiledMapTileLayer) mapLayers.get("terrain");
         collisionLayer = (TiledMapTileLayer) mapLayers.get("forest");
+        npcLayer =  (TiledMapTileLayer)mapLayers.get("npc");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         direction = new Vector2();
 
         layer = (TiledMapTileLayer) map.getLayers().get(0);
 
+        initPodarki();
+
         // Reading map layers
     }
 
+    private void initPodarki(){
+        for(MapObject obj : map.getLayers().get("podarki").getObjects()){
+            if(obj instanceof RectangleMapObject){
+                Podarok pod = new Podarok(((RectangleMapObject) obj).getRectangle());
+                Podarok.podarki.add(pod);
+            }
+
+        }
+    }
+
     public void render(OrthographicCamera camera, SpriteBatch batch) {
+
         updateCamera(camera);
 //        renderer = new OrthogonalTiledMapRenderer(map);
         renderer.setView(camera);
 
         renderer.render();
+        batch.end();
+        batch.begin();
+        for(Podarok pod :Podarok.podarki){
+            batch.draw(pod.texture, pod.rectangle.x,pod.rectangle.y);
+        }
     }
 
     private void updateCamera(OrthographicCamera camera) {
@@ -68,6 +92,10 @@ public class WorldMap {
 
     public TiledMapTileLayer collisionLayer(){
         return collisionLayer;
+    }
+
+    public TiledMapTileLayer npcLayer(){
+        return npcLayer;
     }
 
     public float getWidth() {

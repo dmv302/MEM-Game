@@ -38,8 +38,9 @@ public class GameScreen extends MemScreen {
     OrthographicCamera cam;
     Label label;
 
+    static public int BOX_COUNTER = 0;
     boolean isNpcTextOnScreen = false;
-    
+
     public GameScreen(Game game){
         super(game);
         engine = new Engine();

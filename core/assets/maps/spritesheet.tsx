@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.1" name="spritesheet" tilewidth="32" tileheight="96" tilecount="20" columns="0">
+<tileset version="1.2" tiledversion="1.3.1" name="spritesheet" tilewidth="32" tileheight="96" tilecount="33" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <properties>
@@ -66,5 +66,47 @@
  </tile>
  <tile id="22">
   <image width="32" height="32" source="../ice12.png"/>
+ </tile>
+ <tile id="23">
+  <image width="32" height="32" source="../ice10.png"/>
+ </tile>
+ <tile id="24">
+  <image width="32" height="32" source="../ice11.png"/>
+ </tile>
+ <tile id="25">
+  <image width="32" height="32" source="../ice12.png"/>
+ </tile>
+ <tile id="26">
+  <image width="32" height="32" source="../stone0.png"/>
+ </tile>
+ <tile id="27">
+  <image width="32" height="32" source="../stone1.png"/>
+ </tile>
+ <tile id="28">
+  <image width="32" height="32" source="../stone2.png"/>
+ </tile>
+ <tile id="30">
+  <image width="32" height="32" source="../wood0.png"/>
+ </tile>
+ <tile id="31">
+  <image width="32" height="32" source="../wood1.png"/>
+ </tile>
+ <tile id="32">
+  <properties>
+   <property name="name" value="Jabka"/>
+  </properties>
+  <image width="32" height="32" source="../npc/frog.png"/>
+ </tile>
+ <tile id="33">
+  <image width="32" height="32" source="../npc/hedgehog.png"/>
+ </tile>
+ <tile id="34">
+  <image width="32" height="32" source="../npc/rabbit.png"/>
+ </tile>
+ <tile id="35">
+  <image width="32" height="32" source="../npc/snake.png"/>
+ </tile>
+ <tile id="36">
+  <image width="32" height="32" source="../npc/squirrel.png"/>
  </tile>
 </tileset>
