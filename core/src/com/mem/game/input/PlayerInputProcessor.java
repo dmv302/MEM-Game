@@ -42,9 +42,16 @@ public class PlayerInputProcessor implements InputProcessor, Component {
 	public boolean keyUp(int keycode) {
 		switch (keycode) {
 			case Input.Keys.W:
+				if (pc.dir == PlayerComponent.DirectionsEnum.UP)
+				pc.state = PlayerComponent.StatesEnum.STILL;
 			case Input.Keys.S:
+				if (pc.dir == PlayerComponent.DirectionsEnum.DOWN)
+				pc.state = PlayerComponent.StatesEnum.STILL;
 			case Input.Keys.A:
+				if (pc.dir == PlayerComponent.DirectionsEnum.LEFT)
+				pc.state = PlayerComponent.StatesEnum.STILL;
 			case Input.Keys.D:
+				if (pc.dir == PlayerComponent.DirectionsEnum.RIGHT)
 				pc.state = PlayerComponent.StatesEnum.STILL;
 				break;
 		}
