@@ -29,13 +29,13 @@ public class MainMenuScreen extends MemScreen {
 	
 	public MainMenuScreen(Game game) {
 		super(game);
+		skin = Constants.SKIN;
 		theme = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.ogg"));
 		theme.setLooping(true);
 		theme.setVolume(0.3f);
 		theme.play();
-		skin = new Skin(Gdx.files.internal("skin/freezingui/freezing-ui.json"));
 		batch = new SpriteBatch();
-		viewport = new ScreenViewport();//FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		viewport = new ScreenViewport();
 		ui = new Stage(viewport, batch);
 		game.addInput(ui);
 		
