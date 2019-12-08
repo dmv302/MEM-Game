@@ -28,6 +28,8 @@ import com.mem.game.utils.Constants;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mem.game.utils.NpcDialog;
 
+import java.util.Iterator;
+
 public class GameScreen extends MemScreen {
     Stage ui;
     SpriteBatch batch;
@@ -80,6 +82,7 @@ public class GameScreen extends MemScreen {
                 "Once people knew how to talk to animals too, but then they forgot the knowledge, and now elves are the ones who keep it.",
                 "I've seen some presents thrown around the forest, look around.");
         
+
     }
 
     private Entity createPlayer() {
