@@ -60,7 +60,6 @@ public class WorldMap {
 				Podarok pod = new Podarok(((RectangleMapObject) obj).getRectangle());
 				Podarok.podarki.add(pod);
 			}
-
 		}
 	}
 
@@ -101,11 +100,11 @@ public class WorldMap {
 	}
 
 	public float getWidth() {
-		return layer.getHeight() * Constants.TILE_WIDTH;
+		return layer.getWidth() * Constants.TILE_WIDTH;
 	}
 
 	public float getHeight() {
-		return layer.getHeight() * Constants.TILE_WIDTH;
+		return layer.getHeight() * Constants.TILE_HEIGHT;
 	}
 
 }

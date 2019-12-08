@@ -3,9 +3,7 @@ package com.mem.game.screens;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -37,7 +35,8 @@ public class GameScreen extends MemScreen {
     SpriteBatch batch;
     Engine engine;
     RenderSystem render;
-
+    Sound talkingSound;
+    
     WorldMap map;
     Viewport viewport;
     OrthographicCamera cam;
@@ -61,7 +60,28 @@ public class GameScreen extends MemScreen {
         cam.position.x = map.getWidth()/2;
         cam.position.y = map.getHeight()/2;
         createPlayer();
-        //
+        createNpcs();
+    }
+    
+    private void createNpcs() {
+        createNpc(new TextureRegion(new Texture("npc/squirrel.png")), "squirrel", 5, 7,
+                "Hello, elf! Are you one of the Santa's assistants?",
+                "Ah, I see. He wants you to find all of the Christmas gifts.",
+                "You may want to walk around the woods for some time. Maybe you'll find some of them.");
+        createNpc(new TextureRegion(new Texture("npc/snake.png")), "snake", 17, 3,
+                "Greeeeetings-s-s-s-s, friend. Looking for pres-s-sent-s-s-s?...",
+                "I s-s-s-ink I s-s-saw z-z-z-zem s-s-somewhere near z-z-ze pond...");
+        createNpc(new TextureRegion(new Texture("npc/frog.png")), "frog", 13, 25,
+                "Who are you? What do you want for me?",
+                "Are you looking for presents? You're in a wrong place. ",
+                "Even if I would have seen one, I wouldn't tell you. Get lost...");
+        createNpc(new TextureRegion(new Texture("npc/rabbit.png")), "rabbit", 28, 20,
+                "Hippity-hop! Presents? Haven't heard of them!", "I just wanna play around and have fun!");
+        createNpc(new TextureRegion(new Texture("npc/hedgehog.png")), "hedgehog", 7, 13,
+                "What? You know how to talk to animals? You must be Santa's elf!",
+                "Once people knew how to talk to animals too, but then they forgot the knowledge, and now elves are the ones who keep it.",
+                "I've seen some presents thrown around the forest, look around.");
+        
 
     }
 
