@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.Game;
+import com.mem.game.utils.Constants;
 
 public class MainMenuScreen extends MemScreen {
 	private Stage ui;
@@ -29,12 +30,13 @@ public class MainMenuScreen extends MemScreen {
 	
 	public MainMenuScreen(Game game) {
 		super(game);
+		skin = Constants.SKIN;
 		theme = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.ogg"));
 		theme.setLooping(true);
+		theme.setVolume(0.3f);
 		theme.play();
-		skin = new Skin(Gdx.files.internal("skin/freezingui/freezing-ui.json"));
 		batch = new SpriteBatch();
-		viewport = new ScreenViewport();//FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		viewport = new ScreenViewport();
 		ui = new Stage(viewport, batch);
 		game.addInput(ui);
 		
