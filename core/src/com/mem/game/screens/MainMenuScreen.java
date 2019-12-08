@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.Game;
@@ -35,7 +36,7 @@ public class MainMenuScreen extends MemScreen {
 		theme.setVolume(0.1f);
 		theme.play();
 		batch = new SpriteBatch();
-		viewport = new ScreenViewport();
+		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		ui = new Stage(viewport, batch);
 		game.addInput(ui);
 		
