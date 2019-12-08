@@ -2,6 +2,9 @@ package com.mem.game.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.Audio;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mem.game.components.PlayerComponent;
@@ -16,6 +19,8 @@ public class PlayerSystem extends EntitySystem {
 	private Entity player;
 	private GameScreen screen;
 
+	Sound podarok_sound;
+
 	public PlayerSystem(Entity player, GameScreen screen) {
 		super(0);
 		this.screen = screen;
@@ -27,6 +32,7 @@ public class PlayerSystem extends EntitySystem {
 		TransformComponent pt = player.getComponent(TransformComponent.class);
 		VelocityComponent vc = player.getComponent(VelocityComponent.class);
 		TextureComponent txc = player.getComponent(TextureComponent.class);
+		checkForNPCCollisions(pt, pc, vc,txc, delta);
 		// update position
 		if (canMove(pt, pc, vc,txc, delta) && pc.state == PlayerComponent.StatesEnum.MOVING) {
 			switch (pc.dir) {
@@ -63,11 +69,51 @@ public class PlayerSystem extends EntitySystem {
 		findBoxes(pt, pc, vc,txc, delta);
 	}
 
+	private boolean checkForNPCCollisions(TransformComponent pt, PlayerComponent pc, VelocityComponent vc,TextureComponent tc, float delta){
+		TiledMapTileLayer.Cell cell;
+		int w = tc.texture.getRegionWidth();
+		int h = tc.texture.getRegionHeight();
+		switch (pc.dir) {
+			case DOWN:
+				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y - vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
+				if (cell != null) {
+					System.out.println("Hello " + cell.getTile().getProperties().get("name"));
+					return false;
+				}
+				break;
+			case UP:
+				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y + vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
+				if (cell != null) {
+
+					return false;
+
+				}
+				break;
+			case LEFT:
+				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2 - vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
+				if (cell != null)
+
+					return false;
+
+				break;
+			case RIGHT:
+				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2 + vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
+				if (cell != null)
+
+					return false;
+
+				break;
+		}
+		return true;
+	}
+
 	private void findBoxes(TransformComponent pt, PlayerComponent pc, VelocityComponent vc,TextureComponent tc, float delta){
 		Rectangle chelovek = new Rectangle(pt.position.x,pt.position.y,tc.texture.getRegionWidth(),1);
 		Podarok found = null;
 		for(Podarok pod : Podarok.podarki){
 			if(pod.rectangle.overlaps(chelovek)){
+				podarok_sound = Gdx.audio.newSound(Gdx.files.internal("sounds/PODAROK.wav"));
+				podarok_sound.play();
 				found = pod;
 				screen.BOX_COUNTER++;
 			}

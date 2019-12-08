@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.1" name="spritesheet" tilewidth="64" tileheight="128" tilecount="34" columns="0">
+<tileset version="1.2" tiledversion="1.3.1" name="spritesheet" tilewidth="32" tileheight="96" tilecount="33" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <properties>
@@ -85,9 +85,6 @@
  <tile id="28">
   <image width="32" height="32" source="../stone2.png"/>
  </tile>
- <tile id="29">
-  <image width="64" height="128" source="../tree1.png"/>
- </tile>
  <tile id="30">
   <image width="32" height="32" source="../wood0.png"/>
  </tile>
@@ -95,6 +92,9 @@
   <image width="32" height="32" source="../wood1.png"/>
  </tile>
  <tile id="32">
+  <properties>
+   <property name="name" value="Jabka"/>
+  </properties>
   <image width="32" height="32" source="../npc/frog.png"/>
  </tile>
  <tile id="33">

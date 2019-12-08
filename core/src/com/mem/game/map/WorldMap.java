@@ -31,7 +31,9 @@ public class WorldMap {
 
     TiledMapTileLayer terrainLayer; // assuming the layer at index on contains tiles
 
-    TiledMapTileLayer collisionLayer; // assuming the layer at index on contains tiles
+    TiledMapTileLayer collisionLayer;
+
+    TiledMapTileLayer npcLayer;
 
 
     public WorldMap(GameScreen gs) {
@@ -43,6 +45,7 @@ public class WorldMap {
         mapLayers = map.getLayers();
         terrainLayer = (TiledMapTileLayer) mapLayers.get("terrain");
         collisionLayer = (TiledMapTileLayer) mapLayers.get("forest");
+        npcLayer =  (TiledMapTileLayer)mapLayers.get("npc");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         direction = new Vector2();
@@ -89,6 +92,10 @@ public class WorldMap {
 
     public TiledMapTileLayer collisionLayer(){
         return collisionLayer;
+    }
+
+    public TiledMapTileLayer npcLayer(){
+        return npcLayer;
     }
 
     public float getWidth() {
