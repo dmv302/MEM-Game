@@ -82,32 +82,19 @@ public class PlayerSystem extends EntitySystem {
 		switch (pc.dir) {
 			case DOWN:
 				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y - vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
-				if (cell != null) {
-					System.out.println("Hello " + cell.getTile().getProperties().get("name"));
-					return false;
-				}
+				if (cell != null) return false;
 				break;
 			case UP:
 				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y + vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
-				if (cell != null) {
-
-					return false;
-
-				}
+				if (cell != null) return false;
 				break;
 			case LEFT:
 				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2 - vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
-				if (cell != null)
-
-					return false;
-
+				if (cell != null) return false;
 				break;
 			case RIGHT:
 				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2 + vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
-				if (cell != null)
-
-					return false;
-
+				if (cell != null) return false;
 				break;
 		}
 		return true;
@@ -125,7 +112,6 @@ public class PlayerSystem extends EntitySystem {
 			}
 		}
 		if(found != null)Podarok.podarki.remove(found);
-		System.out.println(screen.BOX_COUNTER);
 	}
 
 	private void playSound() {
