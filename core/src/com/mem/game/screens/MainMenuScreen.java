@@ -1,6 +1,7 @@
 package com.mem.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -24,7 +25,8 @@ public class MainMenuScreen extends MemScreen {
 	private SpriteBatch batch;
 	private Skin skin;
 	private Viewport viewport;
-	
+	private Music theme;
+
 	private Label title;
 	private TextButton start;
 	private TextButton exit;
@@ -32,6 +34,9 @@ public class MainMenuScreen extends MemScreen {
 	
 	public MainMenuScreen(Game game) {
 		super(game);
+		theme = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.ogg"));
+		theme.setLooping(true);
+		theme.play();
 		skin = new Skin(Gdx.files.internal("skin/freezingui/freezing-ui.json"));
 		batch = new SpriteBatch();
 		viewport = new ScreenViewport();//FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
