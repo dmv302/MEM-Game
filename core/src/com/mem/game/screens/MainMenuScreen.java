@@ -33,7 +33,7 @@ public class MainMenuScreen extends MemScreen {
 		skin = Constants.SKIN;
 		theme = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.ogg"));
 		theme.setLooping(true);
-		theme.setVolume(0.3f);
+		theme.setVolume(0.1f);
 		theme.play();
 		batch = new SpriteBatch();
 		viewport = new ScreenViewport();
