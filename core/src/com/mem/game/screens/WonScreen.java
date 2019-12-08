@@ -3,18 +3,17 @@ package com.mem.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.Game;
 
-public class CutSceneScreen extends MemScreen {
+public class WonScreen extends MemScreen {
 	private Stage ui;
 	private SpriteBatch batch;
 	private Skin skin;
@@ -23,22 +22,27 @@ public class CutSceneScreen extends MemScreen {
 	private Label label;
 	private TextButton start;
 
-	public CutSceneScreen(Game game) {
+
+	public WonScreen(Game game) {
 		super(game);
 		skin = new Skin(Gdx.files.internal("skin/freezingui/freezing-ui.json"));
 		batch = new SpriteBatch();
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		ui = new Stage(viewport, batch);
 		game.addInput(ui);
 
-		start = new TextButton("Start", skin);
+		start = new TextButton("Exit", skin);
 		start.setPosition((Gdx.graphics.getWidth() - start.getWidth()) / 2,
 				Gdx.graphics.getHeight() / 10);
-		start.addListener(toGameListener);
+		start.addListener(exitListener);
 		ui.addActor(start);
+		
+		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		label = new Label("SANTA CLAUS: Young elf, you have been studying your craft with me for a long ten years, and now the time has come for you to prove that I can trust you in important tasks. I have prepared a challenge for you: there are 12 hidden packages across the woods, and you need to find them all. If you succeed, you'll become my assistant. Good luck!", skin);
+
+		label = new Label("SANTA CLAUS: Great job! You managed to collect all of the presents and completed my trial! Now I see that you are indeed a great elf and that you deserve to bear a title of Santa's assistant! ", skin);
 		label.setFontScale(1.2f);
 		label.setWrap(true);
 		label.setWidth(viewport.getWorldWidth());
@@ -47,6 +51,7 @@ public class CutSceneScreen extends MemScreen {
 		
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
+
 
 	@Override
 	public void render(float delta) {
@@ -66,10 +71,9 @@ public class CutSceneScreen extends MemScreen {
 		batch.dispose();
 	}
 
-	private ClickListener toGameListener = new ClickListener() {
+	private ClickListener exitListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y) {
-			game.play();
+			game.exit();
 		}
 	};
-
 }

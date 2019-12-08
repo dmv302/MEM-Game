@@ -177,6 +177,10 @@ public class GameScreen extends MemScreen {
         return map;
     }
 
+    public void wonScreen() {
+        game.won();
+    }
+    
     @Override
     public void show() {
 

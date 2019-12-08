@@ -87,6 +87,9 @@ public class PlayerSystem extends EntitySystem {
                 podarok_sound.play();
                 found = pod;
                 screen.BOX_COUNTER++;
+                if (screen.BOX_COUNTER >= 12) {
+                    screen.wonScreen();
+                }
             }
         }
         if (found != null) Podarok.podarki.remove(found);
