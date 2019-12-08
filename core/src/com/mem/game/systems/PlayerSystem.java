@@ -34,7 +34,6 @@ public class PlayerSystem extends EntitySystem {
 		TransformComponent pt = player.getComponent(TransformComponent.class);
 		VelocityComponent vc = player.getComponent(VelocityComponent.class);
 		TextureComponent txc = player.getComponent(TextureComponent.class);
-		checkForNPCCollisions(pt, pc, vc,txc, delta);
 		if (pc.state == PlayerComponent.StatesEnum.MOVING) {
 			playSound();
 		} else stopSound();
@@ -73,44 +72,6 @@ public class PlayerSystem extends EntitySystem {
 		}
 
 		findBoxes(pt, pc, vc,txc, delta);
-	}
-
-	private boolean checkForNPCCollisions(TransformComponent pt, PlayerComponent pc, VelocityComponent vc,TextureComponent tc, float delta){
-		TiledMapTileLayer.Cell cell;
-		int w = tc.texture.getRegionWidth();
-		int h = tc.texture.getRegionHeight();
-		switch (pc.dir) {
-			case DOWN:
-				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y - vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
-				if (cell != null) {
-					System.out.println("Hello " + cell.getTile().getProperties().get("name"));
-					return false;
-				}
-				break;
-			case UP:
-				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y + vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
-				if (cell != null) {
-
-					return false;
-
-				}
-				break;
-			case LEFT:
-				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2 - vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
-				if (cell != null)
-
-					return false;
-
-				break;
-			case RIGHT:
-				cell = screen.getMap().npcLayer().getCell((int) (pt.position.x + w/2 + vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
-				if (cell != null)
-
-					return false;
-
-				break;
-		}
-		return true;
 	}
 
 	private void findBoxes(TransformComponent pt, PlayerComponent pc, VelocityComponent vc,TextureComponent tc, float delta){

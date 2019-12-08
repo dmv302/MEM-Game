@@ -3,6 +3,9 @@ package com.mem.game.screens;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -26,6 +29,8 @@ import com.mem.game.systems.TimeSystem;
 import com.mem.game.utils.Constants;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mem.game.utils.NpcDialog;
+
+import java.util.Iterator;
 
 public class GameScreen extends MemScreen {
     Stage ui;
@@ -56,7 +61,8 @@ public class GameScreen extends MemScreen {
         cam.position.x = map.getWidth()/2;
         cam.position.y = map.getHeight()/2;
         createPlayer();
-        createNpc(new TextureRegion(new Texture("present.png")), "random", 2, 2,"hi", "testing", "amazing");
+        //
+
     }
 
     private Entity createPlayer() {
