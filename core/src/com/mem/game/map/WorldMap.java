@@ -3,6 +3,8 @@ package com.mem.game.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -18,20 +20,34 @@ public class WorldMap {
     private TmxMapLoader loader;
     private OrthogonalTiledMapRenderer renderer;
     private Vector2 direction;
+
+    MapLayers mapLayers;
     TiledMapTileLayer layer; // assuming the layer at index on contains tiles
+
+    TiledMapTileLayer terrainLayer; // assuming the layer at index on contains tiles
 
 
     public WorldMap() {
         loader = new TmxMapLoader();
-        map = loader.load("maps/world_map_test.tmx");
+        TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
+        //params.
+        map = loader.load("maps/map.tmx");
+        mapLayers = map.getLayers();
+        terrainLayer = (TiledMapTileLayer) mapLayers.get("terrain");
         renderer = new OrthogonalTiledMapRenderer(map);
+
         direction = new Vector2();
+
         layer = (TiledMapTileLayer) map.getLayers().get(0);
+
+        // Reading map layers
     }
 
-    public void render(OrthographicCamera camera) {
+    public void render(OrthographicCamera camera, SpriteBatch batch) {
         updateCamera(camera);
+//        renderer = new OrthogonalTiledMapRenderer(map);
         renderer.setView(camera);
+
         renderer.render();
     }
 
