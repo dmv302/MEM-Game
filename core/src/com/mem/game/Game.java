@@ -1,11 +1,15 @@
 package com.mem.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.mem.game.screens.GameScreen;
 import com.mem.game.screens.MainMenuScreen;
 
 public class Game extends com.badlogic.gdx.Game {
 	private MainMenuScreen mms;
 	private GameScreen gs;
+	public InputMultiplexer inputProcessor;
 	
 	private enum StatesEnum { MAIN_MENU, PLAYING, EXITING};
 	private StatesEnum state;
@@ -14,6 +18,7 @@ public class Game extends com.badlogic.gdx.Game {
 	public void create () {
 		state = StatesEnum.MAIN_MENU;
 		
+		inputProcessor = new InputMultiplexer();
 		mms = new MainMenuScreen(this);
 		gs = new GameScreen(this);
 		
@@ -31,5 +36,8 @@ public class Game extends com.badlogic.gdx.Game {
 		state = StatesEnum.EXITING;
 	}
 
-	
+	public void addInput(InputProcessor ip) {
+		inputProcessor.addProcessor(ip);
+		Gdx.input.setInputProcessor(inputProcessor);
+	}
 }

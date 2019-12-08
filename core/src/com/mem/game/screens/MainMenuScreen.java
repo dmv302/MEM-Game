@@ -36,7 +36,7 @@ public class MainMenuScreen extends MemScreen {
 		batch = new SpriteBatch();
 		viewport = new ScreenViewport();//FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		ui = new Stage(viewport, batch);
-		Gdx.input.setInputProcessor(ui);
+		game.addInput(ui);
 		
 		initComponents();
 	}
