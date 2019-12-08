@@ -2,18 +2,21 @@ package com.mem.game.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mem.game.components.PlayerComponent;
 import com.mem.game.components.TextureComponent;
 import com.mem.game.components.TransformComponent;
 import com.mem.game.components.VelocityComponent;
+import com.mem.game.screens.GameScreen;
+import com.mem.game.utils.Constants;
 
 public class PlayerSystem extends EntitySystem {
 	private Entity player;
-	
-	public PlayerSystem(Entity player) {
+	private GameScreen screen;
+
+	public PlayerSystem(Entity player, GameScreen screen) {
 		super(0);
+		this.screen = screen;
 		this.player = player;
 	}
 	
@@ -23,7 +26,7 @@ public class PlayerSystem extends EntitySystem {
 		VelocityComponent vc = player.getComponent(VelocityComponent.class);
 		TextureComponent txc = player.getComponent(TextureComponent.class);
 		// update position
-		if (pc.state == PlayerComponent.StatesEnum.MOVING) {
+		if (canMove(pt, pc, vc,txc, delta) && pc.state == PlayerComponent.StatesEnum.MOVING) {
 			switch (pc.dir) {
 				case DOWN:
 					pt.position.y -= vc.velocityY * delta;
@@ -55,5 +58,42 @@ public class PlayerSystem extends EntitySystem {
 				break;
 		}
 	}
-	
+
+	private boolean canMove(TransformComponent pt, PlayerComponent pc, VelocityComponent vc,TextureComponent tc, float delta) {
+		TiledMapTileLayer.Cell cell;
+		int w = tc.texture.getRegionWidth();
+		int h = tc.texture.getRegionHeight();
+		switch (pc.dir) {
+			case DOWN:
+				cell = screen.getMap().collisionLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y - vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
+				if (cell != null)
+
+					return false;
+
+				break;
+			case UP:
+				cell = screen.getMap().collisionLayer().getCell((int) (pt.position.x + w/2) / (int) Constants.TILE_WIDTH, (int) (pt.position.y + vc.velocityY * delta) / (int) Constants.TILE_HEIGHT);
+				if (cell != null) {
+
+					return false;
+
+				}
+				break;
+			case LEFT:
+				cell = screen.getMap().collisionLayer().getCell((int) (pt.position.x + w/2 - vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
+				if (cell != null)
+
+					return false;
+
+				break;
+			case RIGHT:
+				cell = screen.getMap().collisionLayer().getCell((int) (pt.position.x + w/2 + vc.velocityX * delta) / (int) Constants.TILE_WIDTH, (int) pt.position.y / (int) Constants.TILE_HEIGHT);
+				if (cell != null)
+
+					return false;
+
+				break;
+		}
+		return true;
+	}
 }

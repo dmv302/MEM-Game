@@ -46,12 +46,11 @@ public class GameScreen extends MemScreen {
         engine.addSystem(render);
         
         
-        cam.position.x = 0;
-        cam.position.y = 0;
+        cam.position.x = map.getWidth()/2;
+        cam.position.y = map.getHeight()/2;
 
         viewport = new FillViewport(Constants.VIRTUAL_WIDTH,Constants.VIRTUAL_HEIGHT);
 
-        
         createPlayer();
     }
 
@@ -69,7 +68,7 @@ public class GameScreen extends MemScreen {
         PlayerInputProcessor pic = new PlayerInputProcessor(player);
         player.add(pic);
         game.addInput(pic);
-        PlayerSystem playerSystem = new PlayerSystem(player);
+        PlayerSystem playerSystem = new PlayerSystem(player,this);
         engine.addEntity(player);
         engine.addSystem(playerSystem);
         engine.addSystem(new TimeSystem());
@@ -87,7 +86,10 @@ public class GameScreen extends MemScreen {
         return pos;
     }
     
-    
+    public WorldMap getMap(){
+        return map;
+    }
+
     @Override
     public void show() {
 
@@ -100,8 +102,9 @@ public class GameScreen extends MemScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         
-        map.render(cam);
+
         batch.begin();
+        map.render(cam,batch);
         engine.update(delta);
        // batch.draw(img,cam.position.x - img.getWidth()/2f,cam.position.y - img.getHeight()/2f);
         batch.end();
