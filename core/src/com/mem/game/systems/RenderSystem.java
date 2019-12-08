@@ -7,11 +7,13 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mem.game.components.PlayerComponent;
 import com.mem.game.components.TextureComponent;
 import com.mem.game.components.TransformComponent;
 import com.mem.game.utils.Constants;
 
 public class RenderSystem extends EntitySystem {
+    private Engine engine;
     private ImmutableArray<Entity> entities;
 
     private SpriteBatch batch;
@@ -28,6 +30,7 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
+        this.engine = engine;
         entities = engine.getEntitiesFor(Family.all(TransformComponent.class, TextureComponent.class).get());
     }
 
@@ -39,12 +42,21 @@ public class RenderSystem extends EntitySystem {
         for (Entity entity : entities) {
             TextureComponent textureComponent = textm.get(entity);
             TransformComponent transformComponent = transm.get(entity);
+            if (entity.getComponent(PlayerComponent.class) != null) continue;
             
             batch.draw(textureComponent.texture, transformComponent.position.x, transformComponent.position.y,
                     Constants.ORIGIN.x, Constants.ORIGIN.y,
                     textureComponent.texture.getRegionWidth(), textureComponent.texture.getRegionHeight(),
                     transformComponent.scale.x, transformComponent.scale.y, transformComponent.rotation);
         }
+        Entity player = engine.getEntitiesFor(Family.all(PlayerComponent.class).get()).first();
+        TextureComponent ptxc = player.getComponent(TextureComponent.class);
+        TransformComponent ptc = player.getComponent(TransformComponent.class);
+        batch.draw(ptxc.texture, ptc.position.x, ptc.position.y,
+                Constants.ORIGIN.x, Constants.ORIGIN.y,
+                ptxc.texture.getRegionWidth(), ptxc.texture.getRegionHeight(),
+                ptc.scale.x, ptc.scale.y, ptc.rotation);
         batch.end();
+        
     }
 }
