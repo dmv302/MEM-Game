@@ -1,30 +1,27 @@
 package com.mem.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mem.game.Game;
-import com.mem.game.utils.Constants;
 
 public class MainMenuScreen extends MemScreen {
 	private Stage ui;
 	private SpriteBatch batch;
 	private Skin skin;
 	private Viewport viewport;
-	
+	private Music theme;
+
 	private Label title;
 	private TextButton start;
 	private TextButton exit;
@@ -33,6 +30,10 @@ public class MainMenuScreen extends MemScreen {
 	public MainMenuScreen(Game game) {
 		super(game);
 		skin = Constants.SKIN;
+		theme = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.ogg"));
+		theme.setLooping(true);
+		theme.setVolume(0.3f);
+		theme.play();
 		batch = new SpriteBatch();
 		viewport = new ScreenViewport();
 		ui = new Stage(viewport, batch);
@@ -89,7 +90,7 @@ public class MainMenuScreen extends MemScreen {
 	
 	private ClickListener startListener = new ClickListener() {
 		public void clicked(InputEvent event, float x, float y){
-			game.play();
+			game.toCutscene();
 		}
 	};
 	private ClickListener exitListener = new ClickListener() {
