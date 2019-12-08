@@ -1,7 +1,7 @@
 package com.mem.game.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.mem.game.Game;
 
 public abstract class MemScreen implements Screen {
     Game game;
