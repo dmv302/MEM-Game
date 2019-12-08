@@ -10,12 +10,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.mem.game.screens.GameScreen;
 import com.mem.game.utils.Constants;
 
 public class WorldMap {
 
     private static final float CAMERA_SPEED = 100f;
-
+    private GameScreen gameScreen;
     private TiledMap map;
     private TmxMapLoader loader;
     private OrthogonalTiledMapRenderer renderer;
@@ -27,7 +29,8 @@ public class WorldMap {
     TiledMapTileLayer terrainLayer; // assuming the layer at index on contains tiles
 
 
-    public WorldMap() {
+    public WorldMap(GameScreen gs) {
+        gameScreen = gs;
         loader = new TmxMapLoader();
         TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
         //params.
@@ -52,6 +55,7 @@ public class WorldMap {
     }
 
     private void updateCamera(OrthographicCamera camera) {
+        /*
         direction.set(0.0f, 0.0f);
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.input.getY();
@@ -101,6 +105,13 @@ public class WorldMap {
             camera.position.x += direction.x;
             camera.position.y += direction.y;
         }
+        */
+        
+        Vector3 ppos = gameScreen.getPlayerPosition();
+        
+        camera.position.x = ppos.x;
+        camera.position.y = ppos.y;
+        
         camera.update();
     }
 
