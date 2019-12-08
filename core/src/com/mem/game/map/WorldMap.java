@@ -36,8 +36,6 @@ public class WorldMap {
 	public WorldMap(GameScreen gs) {
 		gameScreen = gs;
 		loader = new TmxMapLoader();
-		TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
-		//params.
 		map = loader.load("maps/map.tmx");
 		mapLayers = map.getLayers();
 		terrainLayer = (TiledMapTileLayer) mapLayers.get("terrain");
@@ -66,7 +64,6 @@ public class WorldMap {
 	public void render(OrthographicCamera camera, SpriteBatch batch) {
 
 		updateCamera(camera);
-//        renderer = new OrthogonalTiledMapRenderer(map);
 		renderer.setView(camera);
 
 		renderer.render();
