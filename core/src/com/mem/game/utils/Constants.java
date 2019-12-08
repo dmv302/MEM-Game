@@ -13,4 +13,6 @@ public class Constants {
     public static final float TILE_HEIGHT = 32;
     
     public static final Vector2 ORIGIN = new Vector2(0, 0);
+    
+    public static float PLAYER_ANIMATION_DELTA = 0.1f;
 }

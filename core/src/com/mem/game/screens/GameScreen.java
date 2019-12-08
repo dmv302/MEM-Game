@@ -23,6 +23,7 @@ import com.mem.game.input.PlayerInputProcessor;
 import com.mem.game.map.WorldMap;
 import com.mem.game.systems.PlayerSystem;
 import com.mem.game.systems.RenderSystem;
+import com.mem.game.systems.TimeSystem;
 import com.mem.game.utils.Constants;
 
 public class GameScreen extends MemScreen {
@@ -55,20 +56,22 @@ public class GameScreen extends MemScreen {
 
     private Entity createPlayer() {
         Entity player = new Entity();
-        img = new Texture("hero.png");
-        TextureRegion region = new TextureRegion(img);
         TransformComponent component = new TransformComponent();
         component.position.set(0, 0, 0);
         player.add(component);
-        player.add(new TextureComponent().set(region));
+        player.add(new TextureComponent().set(new TextureRegion(new Texture("hero/south_still.png"))));
         player.add(new VelocityComponent(5 * Constants.TILE_WIDTH, 5 * Constants.TILE_HEIGHT));
-        player.add(new PlayerComponent());
+        PlayerComponent pc = new PlayerComponent();
+        pc.dir = PlayerComponent.DirectionsEnum.DOWN;
+        pc.state = PlayerComponent.StatesEnum.STILL;
+        player.add(pc);
         PlayerInputProcessor pic = new PlayerInputProcessor(player);
         player.add(pic);
         game.addInput(pic);
         PlayerSystem playerSystem = new PlayerSystem(player,this);
         engine.addEntity(player);
         engine.addSystem(playerSystem);
+        engine.addSystem(new TimeSystem());
         return player;
     }
     
@@ -76,8 +79,10 @@ public class GameScreen extends MemScreen {
         Entity player = engine.getEntitiesFor(Family.one(PlayerComponent.class).get()).first();
         Vector3 pos = player.getComponent(TransformComponent.class).position.cpy();
         TextureRegion region = player.getComponent(TextureComponent.class).texture;
-        pos.x += region.getRegionWidth() / 2;
-        pos.y += region.getRegionHeight() / 2;
+        if (region != null) {
+            pos.x += region.getRegionWidth() / 2;
+            pos.y += region.getRegionHeight() / 2;
+        }
         return pos;
     }
     
